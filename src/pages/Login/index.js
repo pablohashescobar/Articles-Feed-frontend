@@ -175,7 +175,7 @@ const Login = () => {
             <p className="text-info">
               New to Articles Feed
               <Link to="/register" style={{ textDecoration: "none" }}>
-                Sign Up
+                {` SignUp `}
               </Link>
               now
             </p>

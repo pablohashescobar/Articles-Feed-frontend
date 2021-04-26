@@ -30,11 +30,11 @@ const Card = ({ article }) => {
         </Link>
         <div style={{ float: "right" }}>
           <span className="m-2">
-            <i className="bi bi-hand-thumbs-up-fill m-1"></i>
+            <strong>{`Likes `}</strong>
             {article.likes.length}
           </span>
           <span className="m-2">
-            <i className="bi bi-hand-thumbs-down-fill m-1"></i>
+            <strong>{`Dislikes `}</strong>
             {article.unlikes.length}
           </span>
         </div>
