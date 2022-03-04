@@ -3,6 +3,13 @@ import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { createArticle } from "../../actions/article";
 
+// react-draft-wysiwyg
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./CreateArticle.css";
+
 const options = [
   { value: "sports", label: "Sports" },
   { value: "space", label: "Space" },
@@ -19,6 +26,11 @@ const CreateArticle = ({ history }) => {
     article_name: "",
     article_text: "",
   });
+
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+
   //FrontEnd form validation error
   const [formError, setFormError] = useState({
     msg: "",
@@ -31,6 +43,7 @@ const CreateArticle = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Editor:", formData.article_text);
     if (article_name.length < 1) {
       setFormError({
         msg: "This field cannot be empty",
@@ -59,13 +72,13 @@ const CreateArticle = ({ history }) => {
 
     let articleType = articlePreferences.map((preference) => preference.value);
 
-    let formdata = {
+    let articleData = {
       article_name,
       article_text,
       article_type: articleType,
     };
 
-    dispatch(createArticle(formdata, history));
+    dispatch(createArticle(articleData, history));
   };
 
   //Display in form errors
@@ -107,16 +120,20 @@ const CreateArticle = ({ history }) => {
               errorDisplay(formError.msg)}
           </div>
           <div className="form-group">
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              placeholder="Text"
-              rows="5"
-              name="article_text"
-              value={article_text}
-              required
-              onChange={(e) => handleChange(e)}
-            ></textarea>
+            <Editor
+              editorState={editorState}
+              onEditorStateChange={(newState) => {
+                setEditorState(newState);
+                setFormData({
+                  ...formData,
+                  article_text: draftToHtml(
+                    convertToRaw(editorState.getCurrentContent())
+                  ),
+                });
+              }}
+              wrapperClassName="card"
+              editorClassName="card-body"
+            />
             {formError.type &&
               formError.type === "article_text" &&
               errorDisplay(formError.msg)}

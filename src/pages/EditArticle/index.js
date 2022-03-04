@@ -46,9 +46,12 @@ const EditArticle = ({ match }) => {
             <h3 className="card-title">
               {editArticle && editArticle.article_name}
             </h3>
-            <p className="card-text">
-              {editArticle && editArticle.article_text}
-            </p>
+            {editArticle && (
+              <p
+                className="card-text"
+                dangerouslySetInnerHTML={{ __html: editArticle.article_text }}
+              ></p>
+            )}
           </div>
         </div>
         <Link to="/myarticles" type="button" className="btn btn-primary m-2">

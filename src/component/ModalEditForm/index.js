@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { editArticle as editArticleAction } from "../../actions/article";
+
+// react-draft-wysiwyg
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const options = [
   { value: "sports", label: "Sports" },
@@ -13,6 +20,22 @@ const options = [
 
 const EditForm = ({ editArticle, setModalState, modalState }) => {
   const dispatch = useDispatch();
+
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+
+  useEffect(() => {
+    //Set deafult Editor state from html string to draft JS editor state
+    const contentBlock = htmlToDraft(editArticle.article_text);
+    const contentState = ContentState.createFromBlockArray(
+      contentBlock.contentBlocks
+    );
+    const editorState = EditorState.createWithContent(contentState);
+    setEditorState(editorState);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   let defaultPreferenceValue = (articleTypes = editArticle.article_type) => {
     let userPreferenceDefaultValues = [];
@@ -151,16 +174,20 @@ const EditForm = ({ editArticle, setModalState, modalState }) => {
                   errorDisplay(formError.msg)}
               </div>
               <div className="form-group">
-                <textarea
-                  className="form-control"
-                  id="exampleFormControlTextarea1"
-                  placeholder="Text"
-                  name="article_text"
-                  value={article_text}
-                  required
-                  onChange={(e) => handleChange(e)}
-                  rows="5"
-                ></textarea>
+                <Editor
+                  editorState={editorState}
+                  onEditorStateChange={(newState) => {
+                    setEditorState(newState);
+                    setFormData({
+                      ...formData,
+                      article_text: draftToHtml(
+                        convertToRaw(editorState.getCurrentContent())
+                      ),
+                    });
+                  }}
+                  wrapperClassName="card"
+                  editorClassName="card-body"
+                />
                 {formError.type &&
                   formError.type === "article_text" &&
                   errorDisplay(formError.msg)}

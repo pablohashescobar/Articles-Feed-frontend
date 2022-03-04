@@ -37,9 +37,11 @@ const ArticleRead = ({ match, history }) => {
                   {type}
                 </button>
               ))}
-              <p className="card-text" style={{ textAlign: "justify" }}>
-                {article.article_text}
-              </p>
+              <p
+                className="card-text"
+                style={{ textAlign: "justify" }}
+                dangerouslySetInnerHTML={{ __html: article.article_text }}
+              ></p>
               <span
                 className="card-link"
                 onClick={() => dispatch(addLike(article._id))}
