@@ -7,6 +7,13 @@ import { dateConvertor } from "../../utils/dateConvertor";
 const MyArticleCard = ({ article }) => {
   const dispatch = useDispatch();
 
+  const removeHTMLTags = (str) => {
+    if (str === null || str === "") return false;
+    else str = str.toString();
+
+    return str.replace(/(<([^>]+)>)/gi, "");
+  };
+
   return (
     <div className="card m-2" style={{ textAlign: "left" }}>
       <div className="card-header">
@@ -25,7 +32,7 @@ const MyArticleCard = ({ article }) => {
           <h6>{article.username}</h6>
         </div>
         <hr className="my-4" />
-        <p className="card-text">{article.article_text}</p>
+        <p className="card-text">{removeHTMLTags(article.article_text)}</p>
         <Link to={`/edit/${article._id}`} className="btn btn-primary">
           Edit
         </Link>
