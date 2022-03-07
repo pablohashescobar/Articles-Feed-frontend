@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import { dateConvertor } from "../../utils/dateConvertor";
 
 const Card = ({ article }) => {
+  const removeHTMLTags = (str) => {
+    if (str === null || str === "") return false;
+    else str = str.toString();
+
+    return str.replace(/(<([^>]+)>)/gi, "");
+  };
+
   return (
     <div className="card m-2" style={{ textAlign: "left" }}>
       <div className="card-header">
@@ -22,7 +29,7 @@ const Card = ({ article }) => {
         </div>
         <hr className="my-4" />
         <p className="card-text">
-          {`${article.article_text.substr(0, 400)}...`}
+          {`${removeHTMLTags(article.article_text).substr(0, 400)}...`}
           <Link to={`/article/${article._id}`}>Read More</Link>
         </p>
         <Link to={`/article/${article._id}`} className="btn btn-primary">
