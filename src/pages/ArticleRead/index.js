@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,11 @@ import {
   removeLike,
   blockArticle,
 } from "../../actions/article";
+
+import { followUser } from "../../actions/user";
+
 import Loading from "../../component/Loading";
+
 const ArticleRead = ({ match, history }) => {
   const dispatch = useDispatch();
 
@@ -18,7 +22,7 @@ const ArticleRead = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(getArticleById(match.params.id));
-
+    console.log("Article:", article);
     // eslint-disable-next-line
   }, []);
 
@@ -32,6 +36,7 @@ const ArticleRead = ({ match, history }) => {
           <div className="card" style={{ width: "100%" }}>
             <div className="card-body">
               <h4 className="card-title">{article.article_name}</h4>
+              <p>Written by - {article.username}</p>
               {article.article_type.map((type, index) => (
                 <button type="button" className="btn btn-info m-2" key={index}>
                   {type}
@@ -57,13 +62,37 @@ const ArticleRead = ({ match, history }) => {
                 {article.unlikes && article.unlikes.length}
               </span>
               {user._id !== article.user && (
-                <button
-                  type="button"
-                  className="btn btn-danger ml-3"
-                  onClick={() => dispatch(blockArticle(article._id, history))}
-                >
-                  Block
-                </button>
+                <Fragment>
+                  <button
+                    type="button"
+                    className="btn btn-danger ml-3"
+                    onClick={() => dispatch(blockArticle(article._id, history))}
+                  >
+                    Block
+                  </button>
+                  <p className="mt-sm-3">
+                    Author - {article.username}
+                    {user.following.some(
+                      (iterator) => iterator.user === article.user
+                    ) ? (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-secondary ml-3"
+                        onClick={() => dispatch(followUser(article.user))}
+                      >
+                        Unfollow
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-primary ml-3"
+                        onClick={() => dispatch(followUser(article.user))}
+                      >
+                        Follow
+                      </button>
+                    )}
+                  </p>
+                </Fragment>
               )}
             </div>
           </div>

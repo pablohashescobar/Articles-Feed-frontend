@@ -259,3 +259,52 @@ export const editUserSettings = (formData) => async (dispatch) => {
     });
   }
 };
+
+//Follow a user by id
+export const followUser = (id) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // const body = JSON.stringify(formData);
+
+    const res = await ApiClient().put(`/users/follow/${id}`, config);
+
+    dispatch({
+      type: userTypes.FOLLOW_USER,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors && Array.isArray(errors)) {
+      errors.forEach((error) =>
+        toast.error(error.msg, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
+    } else {
+      toast.error("Some error occurred please try again later", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    dispatch({
+      type: userTypes.EDIT_USER_SETTINGS_ERROR,
+    });
+  }
+};
