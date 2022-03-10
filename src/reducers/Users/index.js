@@ -42,6 +42,17 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+    case userTypes.VERIFY_OTP_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          is_verified: true,
+        }
+      };
+    case userTypes.VERIFY_OTP_ERROR:
+      return state
+
     case userTypes.LOGIN_FAIL:
     case userTypes.REGISTER_FAIL:
     case userTypes.AUTH_ERROR:

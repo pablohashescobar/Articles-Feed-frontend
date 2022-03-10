@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserSettings } from "../../actions/user";
+import { editUserSettings, verifyOTP, resendOTP } from "../../actions/user";
 import { Link } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
@@ -26,6 +26,7 @@ const Settings = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
+  const loading = useSelector((state) => state.user.loading);
 
   const defaultPreferenceValue = () => {
     let userPreferenceDefaultValues = [];
@@ -59,6 +60,13 @@ const Settings = () => {
     msg: "",
     type: "",
   });
+  const [otp, setOtp] = useState("");
+  const handleOTPSubmit = (e) => {
+    console.log("otp", otp);
+    e.preventDefault();
+
+    dispatch(verifyOTP(otp));
+  };
 
   const {
     firstName,
@@ -190,7 +198,33 @@ const Settings = () => {
 
   return (
     <div className="container-sm mt-5" style={{ width: "450px" }}>
-      <div className="card-body">
+      <h1 className="text-center">Settings</h1>
+      {!loading && !user.is_verified ? (
+        <div className="card-body">
+          <div className="card p-3">
+            <h4 className="card-title">Edit your personal information</h4>
+            <form onSubmit={handleOTPSubmit}>
+              <div className="form-group">
+                <label htmlFor="OTP">OTP</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="otp"
+                  name="otp"
+                  placeholder="Enter OTP"
+                  onChange={e => setOtp(e.target.value)}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+              <button type="button" className="btn btn-secondary m-2" onClick={e => dispatch(resendOTP())}>
+                Resend OTP
+              </button>
+            </form>
+          </div>
+        </div>
+      ) : (<div className="card-body">
         <div className="card p-3">
           <h4 className="card-title">Edit your personal information</h4>
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -337,7 +371,8 @@ const Settings = () => {
             </button>
           </form>
         </div>
-      </div>
+      </div>)}
+
     </div>
   );
 };

@@ -215,6 +215,7 @@ export const createArticle = (formData, history) => async (dispatch) => {
     });
     setTimeout(() => history.push("/myarticles"), 2000);
   } catch (error) {
+    console.log(error);
     toast.error("Some error occurred Please try again later", {
       position: "top-center",
       autoClose: 3000,

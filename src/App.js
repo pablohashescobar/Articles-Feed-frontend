@@ -9,6 +9,7 @@ import { getUserToken, storeUserToken } from "./utils/Token";
 //Components
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
+import OTPBar from "./component/OTPBar";
 
 //Pages
 import Landing from "./pages/Landing";
@@ -47,6 +48,7 @@ const App = () => {
   return (
     <div className="App">
       <Navbar />
+      <OTPBar />
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />

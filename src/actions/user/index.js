@@ -259,3 +259,114 @@ export const editUserSettings = (formData) => async (dispatch) => {
     });
   }
 };
+
+
+export const verifyOTP = (otp) => async (dispatch) => {
+  try {
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({ otp });
+
+    const res = await ApiClient().post("/users/verify-otp", body, config);
+
+    dispatch({
+      type: userTypes.VERIFY_OTP_SUCCESS,
+      payload: res.data,
+    });
+
+    toast.success("OTP Verified", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors && Array.isArray(errors)) {
+      errors.forEach((error) =>
+        toast.error(error.msg, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
+    } else {
+      toast.error("Some error occurred please try again later", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    dispatch({
+      type: userTypes.VERIFY_OTP_ERROR,
+    });
+  }
+}
+
+
+export const resendOTP = () => async (dispatch) => {
+  try {
+    const res = await ApiClient().get("/users/resend-otp");
+
+    dispatch({
+      type: userTypes.RESEND_OTP_SUCCESS,
+      payload: res.data,
+    });
+
+    toast.success("OTP Sent to you email address", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } catch(error) {
+    const errors = error.response.data.errors;
+
+    if (errors && Array.isArray(errors)) {
+      errors.forEach((error) =>
+        toast.error(error.msg, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
+    } else {
+      toast.error("Some error occurred please try again later", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    dispatch({
+      type: userTypes.RESEND_OTP_ERROR,
+    });
+  }
+}
