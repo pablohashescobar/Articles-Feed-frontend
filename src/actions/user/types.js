@@ -14,6 +14,9 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const EDIT_USER_SETTINGS = "EDIT_USER_SETTINGS";
 export const EDIT_USER_SETTINGS_ERROR = "EDIT_USER_SETTINGS_ERROR";
 
+//Follow User
+export const FOLLOW_USER = "FOLLOW_USER";
+
 //Logout
 export const LOGOUT = "LOGOUT";
 

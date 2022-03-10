@@ -30,6 +30,8 @@ export default function (state = initialState, action) {
       };
 
     case userTypes.EDIT_USER_SETTINGS:
+    case userTypes.FOLLOW_USER:
+      console.log("User", state.user);
       return {
         ...state,
         user: payload,
