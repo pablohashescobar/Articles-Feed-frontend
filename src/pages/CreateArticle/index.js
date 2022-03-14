@@ -94,16 +94,19 @@ const CreateArticle = ({ history }) => {
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group">
             <label htmlFor="nameinput"></label>
+
             <input
               type="text"
-              className="form-control"
+              className="form-control py-5 border-0"
+              style={{ fontSize: "1.7em" }}
               id="nameinput"
               required
               name="article_name"
               value={article_name}
               onChange={(e) => handleChange(e)}
-              placeholder="Name"
+              placeholder="Article Title"
             />
+
             {formError.type &&
               formError.type === "article_name" &&
               errorDisplay(formError.msg)}
