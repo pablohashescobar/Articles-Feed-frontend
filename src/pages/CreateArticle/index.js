@@ -95,23 +95,25 @@ const CreateArticle = ({ history }) => {
           <div className="form-group">
             <label htmlFor="nameinput"></label>
 
-            <input
-              type="text"
-              className="form-control py-5 border-0"
-              style={{ fontSize: "1.7em" }}
-              id="nameinput"
-              required
-              name="article_name"
-              value={article_name}
-              onChange={(e) => handleChange(e)}
-              placeholder="Article Title"
-            />
-
+            <div class="cursor">
+              <input
+                type="text"
+                className="form-control py-5 border-0"
+                id="nameinput"
+                required
+                name="article_name"
+                value={article_name}
+                onChange={(e) => handleChange(e)}
+                placeholder="Article Title"
+              />
+              <i></i>
+            </div>
+            <hr className="mt-0" />
             {formError.type &&
               formError.type === "article_name" &&
               errorDisplay(formError.msg)}
           </div>
-          <div className="form-group">
+          <div className="form-group my-4">
             <Select
               options={options}
               isMulti
@@ -134,8 +136,8 @@ const CreateArticle = ({ history }) => {
                   ),
                 });
               }}
-              wrapperClassName="card"
-              editorClassName="card-body"
+              wrapperClassName="card mkdwn-editor-wrapper"
+              editorClassName="card-body mkdwn-editor-body"
             />
             {formError.type &&
               formError.type === "article_text" &&

@@ -7,9 +7,11 @@ const Landing = () => {
   const loading = useSelector((state) => state.user.loading);
 
   return (
-    <div className="jumbotron jumbotron-fluid">
-      <div className="container mt-4">
-        <h1 className="display-4">Articles Feed</h1>
+    <div className="jumbotron jumbotron-fluid mb-0" style={{ height: "100%" }}>
+      <div className="container mt-4" style={{ height: "100%" }}>
+        <h1 className="display-4" style={{ fontFamily: "Lobster, cursive" }}>
+          Articles Feed
+        </h1>
         <p className="lead">
           A way to great articles and personalised feed Login/Signup now to view
           your feed
