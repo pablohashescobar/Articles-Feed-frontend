@@ -23,6 +23,7 @@ export default function (state = initialState, action) {
 
     case userTypes.REGISTER_SUCCESS:
     case userTypes.LOGIN_SUCCESS:
+    case userTypes.RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
@@ -53,12 +54,15 @@ export default function (state = initialState, action) {
         }
       };
     case userTypes.VERIFY_OTP_ERROR:
+    case userTypes.FORGOT_PASSWORD_SUCCESS:
       return state
 
     case userTypes.LOGIN_FAIL:
     case userTypes.REGISTER_FAIL:
     case userTypes.AUTH_ERROR:
     case userTypes.LOGOUT:
+    case userTypes.FORGOT_PASSWORD_ERROR:
+    case userTypes.RESET_PASSWORD_ERROR:
       return {
         ...state,
         token: null,

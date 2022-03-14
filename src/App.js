@@ -21,6 +21,8 @@ import Settings from "./pages/Settings";
 import MyArticles from "./pages/MyArticles";
 import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/EditArticle";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 //Routing
@@ -53,6 +55,8 @@ const App = () => {
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/forgot-password" component={ForgotPassword} />
+        <Route exact path="/reset-password/:token/:otp" component={ResetPassword} />
         <PrivateRoute exact path="/dashboard" component={DashBoard} />
         <PrivateRoute exact path="/article/:id" component={ArticleRead} />
         <PrivateRoute exact path="/settings" component={Settings} />

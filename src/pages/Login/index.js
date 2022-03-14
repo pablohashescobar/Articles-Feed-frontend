@@ -179,6 +179,11 @@ const Login = () => {
               </Link>
               now
             </p>
+            <p className="text-info">
+              <Link to="/forgot-password" style={{ textDecoration: "none" }}>
+                {` Forgot Password `}
+              </Link>
+            </p>
           </form>
         </div>
       </div>

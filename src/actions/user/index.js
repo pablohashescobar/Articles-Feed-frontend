@@ -422,3 +422,122 @@ export const verifyOTP = (otp) => async (dispatch) => {
     });
   }
 }
+
+
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ email });
+
+    const res = await ApiClient().post("/users/forgot-password", body, config);
+
+    dispatch({
+      type: userTypes.FORGOT_PASSWORD_SUCCESS,
+      payload: res.data,
+    });
+
+    toast.success("Password reset link sent to your email address", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors && Array.isArray(errors)) {
+      errors.forEach((error) =>
+        toast.error(error.msg, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
+    } else {
+      toast.error("Some error occurred please try again later", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    dispatch({
+      type: userTypes.FORGOT_PASSWORD_ERROR,
+    });
+  }
+}
+
+export const resetPassword = (password, confirmPassword, token, otp) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ password: password, confirm_password: confirmPassword });
+
+    const res = await ApiClient().post(`/users/reset-password/${token}/${otp}`, body, config);
+
+    dispatch({
+      type: userTypes.RESET_PASSWORD_SUCCESS,
+      payload: res.data,
+    });
+
+    toast.success("Password reset successfully", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    storeUserToken(res.data.token);
+    dispatch(loadUser());
+
+  } catch (error) {
+    const errors = error.response.data.errors;
+
+    if (errors && Array.isArray(errors)) {
+      errors.forEach((error) =>
+        toast.error(error.msg, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
+    } else {
+      toast.error("Some error occurred please try again later", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    dispatch({
+      type: userTypes.RESET_PASSWORD_ERROR,
+    });
+  }
+}
