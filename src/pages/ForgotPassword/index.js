@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { forgotPassword } from "../../actions/user"
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
 
@@ -15,6 +16,10 @@ const ForgotPassword = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
+        if (!email) {
+            toast.error("Please enter email");
+            return;
+        }
 
         dispatch(forgotPassword(email))
     }
@@ -30,7 +35,7 @@ const ForgotPassword = () => {
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" onChange={(e) => setEmail(e.target.value)} required/>
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>

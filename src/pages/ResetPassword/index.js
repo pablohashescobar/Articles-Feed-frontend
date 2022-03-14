@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { resetPassword } from "../../actions/user";
+import { toast } from "react-toastify";
 
 const ResetPassword = ({ match }) => {
 
@@ -27,11 +28,15 @@ const ResetPassword = ({ match }) => {
         e.preventDefault()
 
         if (password !== confirmPassword) {
+
+            toast.error("Password and Confirm Password must be same");
+
             return setFormData({
                 ...formData,
                 password: "",
                 confirmPassword: "",
             });
+            
         }
 
         dispatch(resetPassword(password, confirmPassword, match.params.token, match.params.otp));
@@ -49,9 +54,9 @@ const ResetPassword = ({ match }) => {
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="form-group">
                     <label htmlFor="password" className='m-2'>Password</label>
-                    <input type="password" className="form-control" id="password" aria-describedby="password" placeholder="Enter password" name="password" onChange={(e) => handleChange(e)} />
+                    <input type="password" className="form-control" id="password" aria-describedby="password" placeholder="Enter password" name="password" onChange={(e) => handleChange(e)} required/>
                     <label htmlFor="confirm-password" className='m-2'>Confirm Password</label>
-                    <input type="password" className="form-control" id="confirm-password" aria-describedby="confirm-password" placeholder="Confirm password" name="confirmPassword" onChange={(e) => handleChange(e)} />
+                    <input type="password" className="form-control" id="confirm-password" aria-describedby="confirm-password" placeholder="Confirm password" name="confirmPassword" onChange={(e) => handleChange(e)} required/>
                     <button type="submit" className="btn btn-primary m-3">Submit</button>
                 </div>
             </form>
