@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Typewriter from "typewriter-effect";
 
 const Landing = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -17,10 +18,20 @@ const Landing = () => {
           your feed
         </p>
         <hr className="my-4" />
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500
+        <p style={{ fontSize: "2em" }}>
+          <Typewriter
+            options={{
+              strings: [
+                "Write what's on your mind.",
+                "Read intersting articles.",
+                "Supports <b>rich</b> <i>text.</i>",
+              ],
+              autoStart: true,
+              loop: true,
+              delay: 50,
+              deleteSpeed: 50,
+            }}
+          />
         </p>
         <div className="d-flex flex-row justify-content-center">
           {isAuthenticated && !loading ? (

@@ -88,7 +88,7 @@ const CreateArticle = ({ history }) => {
 
   return (
     <div>
-      <h3 className="display-4 m-2">Create Article</h3>
+      <h3 className="display-4 m-2">Write an Article</h3>
 
       <div className="container-md mt-5">
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -144,8 +144,8 @@ const CreateArticle = ({ history }) => {
               errorDisplay(formError.msg)}
           </div>
 
-          <button type="submit" className="btn btn-primary m-2">
-            Submit
+          <button type="submit" className="btn btn-primary m-2 px-4">
+            Post Article
           </button>
         </form>
       </div>
