@@ -6,3 +6,51 @@
 .editor-class {
   padding: 5%;
 }
+
+input[name="article_name"] {
+  font-size: 1.7em;
+}
+
+input[name="article_name"]:focus {
+  background: rgb(248, 248, 248);
+  box-shadow: none;
+}
+
+.cursor {
+  position: relative;
+}
+
+.cursor i {
+  position: absolute;
+  width: 1px;
+  height: 80%;
+  background-color: gray;
+  left: 5px;
+  top: 10%;
+  animation-name: blink;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  opacity: 1;
+}
+
+.cursor input:focus + i {
+  display: none;
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.mkdwn-editor-wrapper {
+  border: 1px solid rgb(240, 240, 240);
+}
+
+.mkdwn-editor-body {
+  min-height: 200px;
+}

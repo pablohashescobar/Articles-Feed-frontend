@@ -88,27 +88,32 @@ const CreateArticle = ({ history }) => {
 
   return (
     <div>
-      <h3 className="display-4 m-2">Create Article</h3>
+      <h3 className="display-4 m-2">Write an Article</h3>
 
       <div className="container-md mt-5">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group">
             <label htmlFor="nameinput"></label>
-            <input
-              type="text"
-              className="form-control"
-              id="nameinput"
-              required
-              name="article_name"
-              value={article_name}
-              onChange={(e) => handleChange(e)}
-              placeholder="Name"
-            />
+
+            <div class="cursor">
+              <input
+                type="text"
+                className="form-control py-5 border-0"
+                id="nameinput"
+                required
+                name="article_name"
+                value={article_name}
+                onChange={(e) => handleChange(e)}
+                placeholder="Article Title"
+              />
+              <i></i>
+            </div>
+            <hr className="mt-0" />
             {formError.type &&
               formError.type === "article_name" &&
               errorDisplay(formError.msg)}
           </div>
-          <div className="form-group">
+          <div className="form-group my-4">
             <Select
               options={options}
               isMulti
@@ -131,16 +136,16 @@ const CreateArticle = ({ history }) => {
                   ),
                 });
               }}
-              wrapperClassName="card"
-              editorClassName="card-body"
+              wrapperClassName="card mkdwn-editor-wrapper"
+              editorClassName="card-body mkdwn-editor-body"
             />
             {formError.type &&
               formError.type === "article_text" &&
               errorDisplay(formError.msg)}
           </div>
 
-          <button type="submit" className="btn btn-primary m-2">
-            Submit
+          <button type="submit" className="btn btn-primary m-2 px-4">
+            Post Article
           </button>
         </form>
       </div>

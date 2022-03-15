@@ -11,15 +11,13 @@ const Navbar = () => {
   const loading = useSelector((state) => state.user.loading);
 
   return (
-    <nav className="navbar navbar-light bg-dark p-3">
+    <nav className="navbar navbar-light py-1 px-4 subtle-shadow">
       <div className="container-fluid">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1" style={{ color: "white" }}>
-            Articles Feed
-          </span>
+          <span className="navbar-brand mb-0 h1">Articles Feed</span>
         </Link>
         {isAuthenticated && !loading ? (
-          <div style={{ color: "white", float: "right", marginRight: "5%" }}>
+          <div style={{ float: "right", marginRight: "5%" }}>
             <div className="nav-item dropdown">
               <span
                 className="nav-link dropdown-toggle"
@@ -30,10 +28,7 @@ const Navbar = () => {
                 aria-expanded="false"
                 style={{ color: "#0060B6", textDecoration: "none" }}
               >
-                <span
-                  className="navbar-brand mb-0 h4"
-                  style={{ color: "white" }}
-                >
+                <span className="navbar-brand mb-0 h4">
                   <i
                     className="bi bi-person-circle"
                     style={{ fontSize: "2rem" }}

@@ -18,27 +18,33 @@ const MyArticles = () => {
     // eslint-disable-next-line
   }, []);
 
+  const btnStyle = {
+    textDecoration: "none",
+  };
+
   return (
     <div>
       <h3 className="display-4 m-2">My Articles</h3>
 
       <div className="container-md mt-5">
-        <Link
-          to="/create"
-          type="button"
-          className="btn btn-primary btn-lg btn-block"
-        >
-          Create Article
+        <Link to="/create" style={btnStyle}>
+          <div className="d-flex m-2 justify-content-end">
+            <button className="btn btn-light">
+              Write an Article <i class="bi bi-pencil"></i>
+            </button>
+          </div>
         </Link>
-        {(articles && articles.length) > 0 ? (
-          articles.map((article) => (
-            <MyArticleCard key={article._id} article={article} />
-          ))
-        ) : !loading && articles.length.toString() === "0" ? (
-          <h1>No articles to read</h1>
-        ) : (
-          <Loading />
-        )}
+        <div className="container">
+          {(articles && articles.length) > 0 ? (
+            articles.map((article) => (
+              <MyArticleCard key={article._id} article={article} />
+            ))
+          ) : !loading && articles.length.toString() === "0" ? (
+            <h1>No articles to read</h1>
+          ) : (
+            <Loading />
+          )}
+        </div>
       </div>
     </div>
   );
