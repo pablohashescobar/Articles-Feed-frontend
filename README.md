@@ -1,3 +1,3 @@
 # Frontend for Articles App
 
-### [Live Site](https://feeds-fe.netlify.app/)
+### [Live Site](https://articles-feed.vercel.app/)
