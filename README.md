@@ -1,3 +1,3 @@
 # Frontend for Articles App
 
-### [Live Site](https://articles-feed-api.herokuapp.com/)
+### [Articles Feed](https://articles-feed.vercel.app/)
