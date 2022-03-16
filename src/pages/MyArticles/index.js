@@ -30,7 +30,7 @@ const MyArticles = () => {
         <Link to="/create" style={btnStyle}>
           <div className="d-flex m-2 justify-content-end">
             <button className="btn btn-light">
-              Write an Article <i class="bi bi-pencil"></i>
+              Write an Article <i className="bi bi-pencil"></i>
             </button>
           </div>
         </Link>

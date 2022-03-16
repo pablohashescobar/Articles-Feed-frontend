@@ -95,7 +95,7 @@ const CreateArticle = ({ history }) => {
           <div className="form-group">
             <label htmlFor="nameinput"></label>
 
-            <div class="cursor">
+            <div className="cursor">
               <input
                 type="text"
                 className="form-control py-5 border-0"

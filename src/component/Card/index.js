@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { dateConvertor } from "../../utils/dateConvertor";
+import moment from "moment";
 
 const Card = ({ article }) => {
   const removeHTMLTags = (str) => {
@@ -19,7 +19,7 @@ const Card = ({ article }) => {
           </span>
         ))}
         <span style={{ float: "right" }}>
-          {dateConvertor(new Date(article.date))}
+          {moment(article.publish_date).format("MMM Do YYYY")}
         </span>
       </div>
       <div className="card-body">

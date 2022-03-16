@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteUserArticle } from "../../actions/article";
-import { dateConvertor } from "../../utils/dateConvertor";
+import moment from "moment";
 import SpaceImg from "../../images/sports.jpg";
 
 const MyArticleCard = ({ article }) => {
@@ -28,7 +28,7 @@ const MyArticleCard = ({ article }) => {
               </span>
             ))}
             <span style={{ float: "right" }}>
-              {dateConvertor(new Date(article.date))}
+              {moment(article.publish_date).format("MMM Do YYYY")}
             </span>
           </div>
         </div>
