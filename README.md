@@ -1,3 +1,3 @@
 # Frontend for Articles App
 
-### [Live Site](https://articles-feed.vercel.app/)
+### [Articles Feed](https://articles-feed.vercel.app/)
