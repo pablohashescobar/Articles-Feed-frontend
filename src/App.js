@@ -23,6 +23,7 @@ import CreateArticle from "./pages/CreateArticle";
 import EditArticle from "./pages/EditArticle";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import UploadTest from "./pages/UploadTest";
 import NotFound from "./pages/NotFound";
 
 //Routing
@@ -56,13 +57,18 @@ const App = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
-        <Route exact path="/reset-password/:token/:otp" component={ResetPassword} />
+        <Route
+          exact
+          path="/reset-password/:token/:otp"
+          component={ResetPassword}
+        />
         <PrivateRoute exact path="/dashboard" component={DashBoard} />
         <PrivateRoute exact path="/article/:id" component={ArticleRead} />
         <PrivateRoute exact path="/settings" component={Settings} />
         <PrivateRoute exact path="/myarticles" component={MyArticles} />
         <PrivateRoute exact path="/create" component={CreateArticle} />
         <PrivateRoute exact path="/edit/:id" component={EditArticle} />
+        <PrivateRoute exact path="/upload" component={UploadTest} />
         <Route component={NotFound} />
       </Switch>
       <Footer />
