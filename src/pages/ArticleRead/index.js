@@ -28,82 +28,96 @@ const ArticleRead = ({ match, history }) => {
 
   return (
     <div>
-      <h3 className="display-4 m-2">Article</h3>
-      {loading || article == null ? (
-        <Loading />
-      ) : (
-        <div className="container-md">
-          <div className="card" style={{ width: "100%" }}>
-            <div className="card-body">
-              <h4 className="card-title">{article.article_name}</h4>
-              <p>Written by - {article.username}</p>
-              {article.article_type.map((type, index) => (
-                <button type="button" className="btn btn-info m-2" key={index}>
-                  {type}
-                </button>
-              ))}
-              <p
-                className="card-text"
-                style={{ textAlign: "justify" }}
-                dangerouslySetInnerHTML={{ __html: article.article_text }}
-              ></p>
-              <span
-                className="card-link"
-                onClick={() => dispatch(addLike(article._id))}
-              >
-                <i className="bi bi-hand-thumbs-up-fill m-1"></i>
-                {article.likes && article.likes.length}
-              </span>
-              <span
-                className="card-link"
-                onClick={() => dispatch(removeLike(article._id))}
-              >
-                <i className="bi bi-hand-thumbs-down-fill m-1"></i>
-                {article.unlikes && article.unlikes.length}
-              </span>
-              {user._id !== article.user && (
-                <Fragment>
-                  <button
-                    type="button"
-                    className="btn btn-danger ml-3"
-                    onClick={() => dispatch(blockArticle(article._id, history))}
-                  >
-                    Block
-                  </button>
-                  <p className="mt-sm-3">
-                    Author - {article.username}
-                    {user.following.some(
-                      (iterator) => iterator.user === article.user
-                    ) ? (
+      <div className="container">
+        {loading || article == null ? (
+          <Loading />
+        ) : (
+          <div className="container-md">
+            <h3 className="display-4 my-2 text-left">{article.article_name}</h3>
+            <div style={{ width: "100%" }}>
+              <div className="text-left">
+                {user._id !== article.user && (
+                  <Fragment>
+                    <div>
+                      <p className="my-3 light-text">
+                        Author - {article.username}
+                      </p>
+                      {user.following.some(
+                        (iterator) => iterator.user === article.user
+                      ) ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-secondary mr-3"
+                          onClick={() => dispatch(followUser(article.user))}
+                        >
+                          <i className="bi bi-person-dash-fill mr-1"></i>
+                          Unfollow
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-primary mr-3"
+                          onClick={() => dispatch(followUser(article.user))}
+                        >
+                          <i className="bi bi-person-plus-fill mr-1"></i>Follow
+                        </button>
+                      )}
                       <button
                         type="button"
-                        className="btn btn-sm btn-secondary ml-3"
-                        onClick={() => dispatch(followUser(article.user))}
+                        className="btn btn-sm btn-danger mr-3"
+                        onClick={() =>
+                          dispatch(blockArticle(article._id, history))
+                        }
                       >
-                        Unfollow
+                        <i class="bi bi-eye-slash mr-1"></i>Block Article
                       </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-primary ml-3"
-                        onClick={() => dispatch(followUser(article.user))}
-                      >
-                        Follow
-                      </button>
-                    )}
+                    </div>
+                  </Fragment>
+                )}
+
+                {article.article_type.map((type, index) => (
+                  <p className="my-2">
+                    Tags:
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-light mr-1"
+                      key={index}
+                    >
+                      {type}
+                    </button>
                   </p>
-                </Fragment>
-              )}
+                ))}
+                <hr className="my-2" />
+                <p
+                  className="card-text"
+                  style={{ textAlign: "justify" }}
+                  dangerouslySetInnerHTML={{ __html: article.article_text }}
+                ></p>
+                <span
+                  className="card-link"
+                  onClick={() => dispatch(addLike(article._id))}
+                >
+                  <i className="bi bi-arrow-up m-1"></i>
+                  {article.likes && article.likes.length}
+                </span>
+                <span
+                  className="card-link"
+                  onClick={() => dispatch(removeLike(article._id))}
+                >
+                  <i className="bi bi-arrow-down m-1"></i>
+                  {article.unlikes && article.unlikes.length}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <Link to="/dashboard">
-        <button type="button" className="btn btn-primary m-4">
-          Go Back
-        </button>
-      </Link>
+        <Link to="/dashboard">
+          <button type="button" className="btn btn-primary m-4">
+            <i className="bi bi-arrow-left mr-1"></i>Go Back
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
