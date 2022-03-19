@@ -21,7 +21,7 @@ const MyArticleCard = ({ article }) => {
         <div>
           <h4 className="card-title mb-1">{article.article_name}</h4>
           <p className="light-text">Written by - {article.username}</p>
-          <div className="">
+          <div>
             {article.article_type.map((type, index) => (
               <span key={index} className="btn btn-sm btn-light mx-1">
                 {type}
@@ -49,11 +49,11 @@ const MyArticleCard = ({ article }) => {
         <div style={{ float: "right" }}>
           <span className="m-2">
             <i className="bi bi-arrow-up m-1"></i>
-            {article.likes.length}
+            <b>{article.likes.length}</b>
           </span>
           <span className="m-2">
             <i className="bi bi-arrow-down m-1"></i>
-            {article.unlikes.length}
+            <b>{article.unlikes.length}</b>
           </span>
         </div>
       </div>

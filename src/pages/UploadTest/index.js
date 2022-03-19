@@ -46,10 +46,10 @@ const UploadTest = () => {
         </div>
       ))}
 
-      <img
-        src="http://localhost:5000/api/articles/image/719536b1f1f3dfeedc8a4fe09383af2c"
+      {/* <img
+        src="http://localhost:5000/api/articles/image/fa20ed480991bbe7d8f9e2655fe02969"
         alt="a"
-      ></img>
+      ></img> */}
     </div>
   );
 };

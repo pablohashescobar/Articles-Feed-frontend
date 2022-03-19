@@ -55,7 +55,7 @@ const EditArticle = ({ match }) => {
           </div>
         </div>
         <Link to="/myarticles" type="button" className="btn btn-primary m-2">
-          Go Back
+          <i className="bi bi-arrow-left mr-1"></i>Go Back
         </Link>
         <button
           type="button"
@@ -64,7 +64,7 @@ const EditArticle = ({ match }) => {
           data-target="#exampleModalCenter"
           onClick={(e) => toggleModalState()}
         >
-          Edit This Article
+          <i class="bi bi-pencil-fill mr-1"></i>Edit This Article
         </button>
       </div>
     </div>
