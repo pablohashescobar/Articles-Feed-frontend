@@ -9,6 +9,7 @@ import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./CreateArticle.css";
+import ApiClient from "../../utils/ApiClient";
 
 const options = [
   { value: "sports", label: "Sports" },
@@ -40,6 +41,23 @@ const CreateArticle = ({ history }) => {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const uploadImageCallback = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const result = await ApiClient().post("/articles/image", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    console.log({ link: result.data });
+
+    return {
+      data: {
+        link: result.data,
+      },
+    };
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -127,6 +145,7 @@ const CreateArticle = ({ history }) => {
           <div className="form-group">
             <Editor
               editorState={editorState}
+              toolbar={{ image: { uploadCallback: uploadImageCallback } }}
               onEditorStateChange={(newState) => {
                 setEditorState(newState);
                 setFormData({
