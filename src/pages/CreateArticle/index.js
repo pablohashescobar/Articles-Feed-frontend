@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { createArticle } from "../../actions/article";
-
-// react-draft-wysiwyg
-import { EditorState, convertToRaw } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./CreateArticle.css";
-import ApiClient from "../../utils/ApiClient";
+import RichTextEditor from "../../component/RichTextEditor/RichTextEditor";
 
 const options = [
   { value: "sports", label: "Sports" },
@@ -28,10 +22,6 @@ const CreateArticle = ({ history }) => {
     article_text: "",
   });
 
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-
   //FrontEnd form validation error
   const [formError, setFormError] = useState({
     msg: "",
@@ -41,23 +31,6 @@ const CreateArticle = ({ history }) => {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const uploadImageCallback = async (file) => {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const result = await ApiClient().post("/articles/image", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-
-    console.log({ link: result.data });
-
-    return {
-      data: {
-        link: result.data,
-      },
-    };
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -143,21 +116,7 @@ const CreateArticle = ({ history }) => {
               errorDisplay(formError.msg)}
           </div>
           <div className="form-group">
-            <Editor
-              editorState={editorState}
-              toolbar={{ image: { uploadCallback: uploadImageCallback } }}
-              onEditorStateChange={(newState) => {
-                setEditorState(newState);
-                setFormData({
-                  ...formData,
-                  article_text: draftToHtml(
-                    convertToRaw(editorState.getCurrentContent())
-                  ),
-                });
-              }}
-              wrapperClassName="card mkdwn-editor-wrapper"
-              editorClassName="card-body mkdwn-editor-body"
-            />
+            <RichTextEditor formData={formData} setFormData={setFormData} />
             {formError.type &&
               formError.type === "article_text" &&
               errorDisplay(formError.msg)}
