@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -11,7 +11,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) =>
         !isAuthenticated && !loading ? (
-          <Redirect to="/login" />
+          <Navigate to="/login" />
         ) : (
           <Component {...props} />
         )

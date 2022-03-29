@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { resetPassword } from "../../actions/user";
 import { toast } from "react-toastify";
 
@@ -45,7 +45,7 @@ const ResetPassword = ({ match }) => {
 
     //Redirect if logged in
     if (isAuthenticated && !loading) {
-        return <Redirect to="/dashboard" />;
+        return <Navigate to="/dashboard" />;
     }
 
     return (

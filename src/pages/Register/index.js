@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../actions/user";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import "./index.css";
@@ -161,7 +161,7 @@ const Register = () => {
 
   //Redirect if logged in
   if (isAuthenticated && !loading) {
-    return <Redirect to="/dashboard" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return (

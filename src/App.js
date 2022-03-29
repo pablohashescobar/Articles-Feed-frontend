@@ -27,7 +27,7 @@ import NotFound from "./pages/NotFound";
 
 //Routing
 import PrivateRoute from "./routing/PrivateRoute";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,7 +51,7 @@ const App = () => {
     <div className="App">
       <Navbar />
       <OTPBar />
-      <Switch>
+      <Routes>
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
@@ -68,7 +68,7 @@ const App = () => {
         <PrivateRoute exact path="/create" component={CreateArticle} />
         <PrivateRoute exact path="/edit/:id" component={EditArticle} />
         <Route component={NotFound} />
-      </Switch>
+      </Routes>
       <Footer />
     </div>
   );
