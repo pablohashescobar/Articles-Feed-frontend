@@ -11,19 +11,29 @@ const RichTextEditor = ({ formData, setFormData }) => {
     EditorState.createEmpty()
   );
 
+  const [error, setError] = useState(false);
+
   const uploadImageCallback = async (file) => {
-    const formData = new FormData();
-    formData.append("image", file);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
 
-    const result = await ApiClient().post("/articles/image", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+      const result = await ApiClient().post("/articles/image", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-    return {
-      data: {
-        link: result.data,
-      },
-    };
+      return {
+        data: {
+          link: result.data,
+        },
+      };
+    } catch (error) {
+      setError(error.response.data.error);
+
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+    }
   };
 
   const seeEditorChange = (e) => {
@@ -53,6 +63,8 @@ const RichTextEditor = ({ formData, setFormData }) => {
         wrapperClassName="card mkdwn-editor-wrapper"
         editorClassName="card-body mkdwn-editor-body"
       />
+
+      {error && <div className="alert alert-danger">{error}</div>}
     </Fragment>
   );
 };
