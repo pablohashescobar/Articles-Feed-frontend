@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsingEmail, loginUsingPhone } from "../../actions/user";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import {
   emailValidator,
@@ -109,7 +109,7 @@ const Login = () => {
 
   //Redirect if logged in
   if (isAuthenticated && !loading) {
-    return <Navigate to="/dashboard" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (

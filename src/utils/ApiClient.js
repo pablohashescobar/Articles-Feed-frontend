@@ -3,7 +3,7 @@ import { getUserToken } from "./Token";
 
 const ApiClient = () => {
   return axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL: "https://feeds-api.herokuapp.com/api",
     headers: {
       "x-auth-token": getUserToken(),
     },
