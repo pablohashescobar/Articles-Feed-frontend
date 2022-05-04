@@ -62,12 +62,12 @@ const App = () => {
           component={<ResetPassword />}
         />
 
-        <PrivateRoute exact path="/dashboard" component={<DashBoard />} />
-        <PrivateRoute exact path="/article/:id" component={<ArticleRead />} />
-        <PrivateRoute exact path="/settings" component={<Settings />} />
-        <PrivateRoute exact path="/myarticles" component={<MyArticles />} />
-        <PrivateRoute exact path="/create" component={<CreateArticle />} />
-        <PrivateRoute exact path="/edit/:id" component={<EditArticle />} />
+        <PrivateRoute exact path="/dashboard" component={DashBoard} />
+        <PrivateRoute exact path="/article/:id" component={ArticleRead} />
+        <PrivateRoute exact path="/settings" component={Settings} />
+        <PrivateRoute exact path="/myarticles" component={MyArticles} />
+        <PrivateRoute exact path="/create" component={CreateArticle} />
+        <PrivateRoute exact path="/edit/:id" component={EditArticle} />
         <Route component={<NotFound />} />
       </Switch>
       <Footer />
