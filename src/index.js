@@ -12,8 +12,6 @@ import Loading from "./component/Loading";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
-
-
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [new BrowserTracing()],
@@ -23,7 +21,6 @@ Sentry.init({
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
 });
-
 
 ReactDOM.render(
   <React.StrictMode>

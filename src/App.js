@@ -27,7 +27,7 @@ import NotFound from "./pages/NotFound";
 
 //Routing
 import PrivateRoute from "./routing/PrivateRoute";
-import { Route, Routes } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,16 +51,17 @@ const App = () => {
     <div className="App">
       <Navbar />
       <OTPBar />
-      <Routes>
-        <Route exact path="/" element={<Landing />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/forgot-password" element={<ForgotPassword />} />
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route
           exact
           path="/reset-password/:token/:otp"
           element={<ResetPassword />}
         />
+
         <PrivateRoute exact path="/dashboard" element={<DashBoard />} />
         <PrivateRoute exact path="/article/:id" element={<ArticleRead />} />
         <PrivateRoute exact path="/settings" element={<Settings />} />
@@ -68,7 +69,7 @@ const App = () => {
         <PrivateRoute exact path="/create" element={<CreateArticle />} />
         <PrivateRoute exact path="/edit/:id" element={<EditArticle />} />
         <Route element={<NotFound />} />
-      </Routes>
+      </Switch>
       <Footer />
     </div>
   );

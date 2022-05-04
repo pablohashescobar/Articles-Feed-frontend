@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../actions/user";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import "./index.css";
@@ -45,14 +45,8 @@ const Register = () => {
     type: "",
   });
 
-  const {
-    firstName,
-    lastName,
-    email,
-    phone,
-    password,
-    confirmPassword,
-  } = formData;
+  const { firstName, lastName, email, phone, password, confirmPassword } =
+    formData;
 
   const handleChange = (e) => {
     return setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -161,7 +155,7 @@ const Register = () => {
 
   //Redirect if logged in
   if (isAuthenticated && !loading) {
-    return <Navigate to="/dashboard" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
