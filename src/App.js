@@ -52,22 +52,22 @@ const App = () => {
       <Navbar />
       <OTPBar />
       <Routes>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/forgot-password" component={ForgotPassword} />
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route
           exact
           path="/reset-password/:token/:otp"
-          component={ResetPassword}
+          element={<ResetPassword />}
         />
-        <PrivateRoute exact path="/dashboard" component={DashBoard} />
-        <PrivateRoute exact path="/article/:id" component={ArticleRead} />
-        <PrivateRoute exact path="/settings" component={Settings} />
-        <PrivateRoute exact path="/myarticles" component={MyArticles} />
-        <PrivateRoute exact path="/create" component={CreateArticle} />
-        <PrivateRoute exact path="/edit/:id" component={EditArticle} />
-        <Route component={NotFound} />
+        <PrivateRoute exact path="/dashboard" element={<DashBoard />} />
+        <PrivateRoute exact path="/article/:id" element={<ArticleRead />} />
+        <PrivateRoute exact path="/settings" element={<Settings />} />
+        <PrivateRoute exact path="/myarticles" element={<MyArticles />} />
+        <PrivateRoute exact path="/create" element={<CreateArticle />} />
+        <PrivateRoute exact path="/edit/:id" element={<EditArticle />} />
+        <Route element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
