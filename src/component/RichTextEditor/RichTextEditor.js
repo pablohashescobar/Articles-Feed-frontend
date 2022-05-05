@@ -22,9 +22,13 @@ const RichTextEditor = ({ formData, setFormData }) => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
+      console.log(result.data);
+
       return {
         data: {
-          link: result.data,
+          link: `https://feeds-store.s3.ap-south-1.amazonaws.com/${
+            result.data.key.split(".")[0]
+          }`,
         },
       };
     } catch (error) {
